@@ -1,0 +1,140 @@
+﻿Wireframes - v1 (Text Descriptions)
+This document outlines the low-fidelity wireframes for the key screens and flows of the Point-Based Reward System Web App, focusing on the MVP features.
+Color Palette Reminder:
+* Primary: Orange (#F9A825)
+* Secondary: Dark Gray (#374151)
+* Accent 1: Teal (#2DD4BF)
+* Accent 2: Blush (#FB923C)
+* Neutrals: Light Gray (#F3F4F6), White (#FFFFFF), Medium Gray (#6B7280)
+* Font: Inter
+General Layout Principles:
+* Responsive: All layouts assume responsiveness (Mobile-first approach considered).
+* Navigation:
+   * Caregiver: Persistent sidebar navigation (Desktop/Tablet), bottom navigation (Mobile). Includes links to Dashboard, Tasks, Rewards, Children (future), Settings.
+   * Child: Simplified top bar or bottom navigation with key areas (Tasks, Rewards, Points).
+* Header: Contains Logo, User Profile/Logout (Caregiver), Child Profile/PIN Logout (Child).
+* Content Area: Main section where screen-specific content resides. Uses cards, lists, forms.
+* Buttons: Consistent styling (Primary = Orange, Secondary = Teal/Gray). Clear action text.
+* Accessibility: Sufficient contrast, clear focus states, logical content order.
+I. Caregiver Flows
+1. Login Screen:
+* Layout: Centered content block on a neutral background.
+* Elements:
+   * Logo (Mascot Head Icon) at the top.
+   * Heading: "Caregiver Login"
+   * Input Field: Email Address (with label)
+   * Input Field: Password (with label, show/hide toggle)
+   * Button: "Login" (Primary Orange)
+   * Link: "Forgot Password?"
+   * Link: "Sign Up" (Optional, depending on flow)
+2. Dashboard Screen:
+* Layout: Header, Sidebar Navigation, Main Content Area.
+* Header: Logo, "Welcome, [Caregiver Name]", Profile/Logout icon.
+* Sidebar: Dashboard, Tasks, Rewards, Children (placeholder), Settings.
+* Main Content Area:
+   * Heading: "Dashboard"
+   * Section: "Child Overview" (Repeats for each managed child)
+      * Child Name/Avatar
+      * Current Point Balance (Large font, visually prominent)
+      * Quick Stats: Points Earned Today, Tasks Completed Today.
+      * Progress Bar/Indicator towards next Primary Reward (Optional).
+      * Link/Button: "View [Child Name]'s Details" (-> Child-specific view/ledger)
+   * Section: "Quick Actions"
+      * Button: "+ Add New Task" (Primary Orange)
+      * Button: "+ Add New Reward" (Primary Orange)
+   * Section: "Recent Activity" (Optional - small log)
+      * List of recent task completions/reward redemptions across children.
+3. Task List Screen:
+* Layout: Header, Sidebar, Main Content Area with List.
+* Main Content Area:
+   * Heading: "Manage Tasks"
+   * Button: "+ Add New Task" (Top right, Primary Orange)
+   * Filters/Sort (Optional): By Category, Recurrence.
+   * Task List:
+      * Each task displayed as a Card or List Item.
+      * Task Card: Task Title, Point Value (prominent), Category Tag, Recurrence Info (e.g., "Daily"). Action Buttons: "Edit", "Delete".
+   * Empty State: Message like "No tasks created yet. Add one to get started!" with "+ Add New Task" button.
+4. Task Create/Edit Screen:
+* Layout: Header, Sidebar, Main Content Area with Form. Can be a Modal or a dedicated page.
+* Main Content Area (Form):
+   * Heading: "Create New Task" / "Edit Task: [Task Name]"
+   * Input Field: Task Title (Required)
+   * Text Area: Description (Optional)
+   * Select Dropdown: Category (e.g., Chore, Behavior, Learning) - Allow creating new categories?
+   * Input Field (Number): Point Value (Required)
+   * Select Dropdown/Radio Buttons: Recurrence (None, Daily, Weekly [select days], Custom)
+   * Assign To (Future): Checkboxes/Multi-select for assigning to specific children. (For MVP, maybe applies to all?)
+   * Buttons: "Save Task" (Primary Orange), "Cancel" (Gray)
+   * (Edit Mode Only): Button: "Delete Task" (Red, with confirmation)
+5. Reward List Screen:
+* Layout: Similar to Task List Screen.
+* Main Content Area:
+   * Heading: "Manage Rewards"
+   * Button: "+ Add New Reward" (Top right, Primary Orange)
+   * Tabs/Filter: "Mini Rewards", "Primary Rewards"
+   * Reward List (per tab):
+      * Each reward as a Card or List Item.
+      * Reward Card: Reward Title, Point Cost (prominent), Type (Mini/Primary). Action Buttons: "Edit", "Delete".
+   * Empty State: Similar to Tasks.
+6. Reward Create/Edit Screen:
+* Layout: Similar to Task Create/Edit Screen (Modal or Page).
+* Main Content Area (Form):
+   * Heading: "Create New Reward" / "Edit Reward: [Reward Name]"
+   * Input Field: Reward Title (Required)
+   * Text Area: Description (Optional)
+   * Input Field (Number): Point Cost (Required)
+   * Select Dropdown/Radio Buttons: Reward Type (Mini Reward, Primary Reward)
+   * (If Primary): Input Field (Number): Eligibility Threshold/Cooldown (e.g., "Redeemable every 7 days" - Future enhancement, maybe just cost for MVP).
+   * Buttons: "Save Reward" (Primary Orange), "Cancel" (Gray)
+   * (Edit Mode Only): Button: "Delete Reward" (Red, with confirmation)
+7. Point Ledger Screen (Caregiver View):
+* Layout: Header, Sidebar, Main Content Area with Table/List.
+* Main Content Area:
+   * Heading: "Point Ledger - [Child Name]" (Needs child selection if not accessed from dashboard link)
+   * Current Balance Display (Prominent).
+   * Filters: Date Range, Transaction Type (Earned/Spent).
+   * Table/List of Transactions:
+      * Columns: Date/Time, Description (e.g., "Task: Clean Room", "Reward: Snack"), Points (+/- value, color-coded), Running Balance.
+      * Sorted newest first.
+II. Child User Flows
+8. Child Login Screen (PIN):
+* Layout: Simplified, centered content block. Friendly background/colors.
+* Elements:
+   * Greeting: "Hi [Child Name]!" (If multiple children, profile selection first)
+   * Avatar/Icon for the child.
+   * Instruction: "Enter your PIN"
+   * PIN Input Area: 4-6 digit input boxes or numeric keypad. Visual feedback on entry.
+   * Button: "Go!" / Arrow Icon (Primary Orange/Teal)
+   * Link/Button: "Forgot PIN? Ask a Grown-up"
+9. Child Dashboard/Task List Screen:
+* Layout: Simplified Header, Main Content Area. Possibly bottom navigation. Very visual.
+* Header: Child Avatar/Name, Current Point Total (Large, prominent, maybe with star/coin icon).
+* Main Content Area:
+   * Heading: "Your Tasks Today" / "Tasks"
+   * Task List (Simplified Cards):
+      * Task Card: Task Title, Point Value (visual icon like stars/coins?), Category Icon (optional).
+      * Action: Large Checkbox or Button "Done!" (Teal/Green).
+      * Visual Feedback: Upon completion, card might animate, show a checkmark, points animation towards total. Completed tasks might move to a "Completed Today" section or grey out.
+   * Empty State: Friendly message like "No tasks left today! Great job!" or "Ask a grown-up to add tasks!".
+10. Child Reward List Screen:
+* Layout: Simplified Header, Main Content Area.
+* Header: Child Avatar/Name, Current Point Total.
+* Main Content Area:
+   * Heading: "Rewards Store"
+   * Tabs/Sections (Optional, if many rewards): "Mini Rewards", "Big Rewards"
+   * Reward List (Visual Cards):
+      * Reward Card: Reward Title, Point Cost (prominent, maybe with star/coin icon), Image/Icon (if possible).
+      * Action Button: "Get Reward ([Point Cost])" - Button is enabled/disabled (visually distinct) based on point balance. Primary Orange when affordable, Gray when not.
+      * Affordability Indicator: Clear visual cue if they can afford it (e.g., highlighted border, brighter button).
+   * Confirmation: Clicking "Get Reward" shows a simple confirmation modal ("Ask a grown-up to confirm?"). Initial MVP might just deduct points directly, caregiver confirms offline.
+11. Child Point Ledger Screen (Simplified):
+* Layout: Simple list view.
+* Header: Child Avatar/Name, Current Point Total.
+* Main Content Area:
+   * Heading: "Your Points History"
+   * Simplified List:
+      * Icon (Task/Reward related)
+      * Description ("Cleaned Room", "Got Snack Reward")
+      * Points (+10 / -25) - Visually distinct (color, +/- sign).
+      * Date (Simplified - "Today", "Yesterday").
+   * Focus on recent activity, maybe last 10-20 items.

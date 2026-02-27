@@ -1,0 +1,135 @@
+{% extends "dashboard/base.html" %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 mb-20 max-w-6xl">
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold text-[#374151] dark:text-white">Dashboard</h1>
+        <div class="flex gap-4">
+            <a href="{% url 'parent_tasks' %}"
+                class="bg-[#F9A825] hover:bg-orange-600 text-white px-5 py-2.5 rounded-lg font-medium shadow-md transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+                Task
+            </a>
+            <a href="{% url 'parent_rewards' %}"
+                class="bg-[#2DD4BF] hover:bg-teal-500 text-white px-5 py-2.5 rounded-lg font-medium shadow-md transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+                Reward
+            </a>
+        </div>
+    </div>
+
+    <!-- Child Overview Section -->
+    <h2 class="text-xl font-bold text-gray-700 dark:text-gray-200 mb-6">Child Overview</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+        {% if kids %}
+        {% for kid in kids %}
+        <div
+            class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-md transition">
+            <div class="p-6">
+                <div class="flex items-center gap-4 mb-6">
+                    <img src="https://ui-avatars.com/api/?name={{ kid.user.first_name|default:kid.user.username }}&background=FB923C&color=fff&size=64"
+                        alt="{{ kid.user.username }}"
+                        class="w-16 h-16 rounded-full border-4 border-[#F3F4F6] object-cover">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ kid.user.username|title }}</h3>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4 mb-6 text-center">
+                    <span class="block text-sm text-gray-500 dark:text-gray-400 font-medium mb-1">Current Points</span>
+                    <div class="text-4xl font-extrabold text-[#F9A825] drop-shadow-sm">{{ kid.points|default:"0" }}
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center bg-gray-50 dark:bg-gray-700/50 rounded-lg p-2 px-4 mb-6">
+                    <form action="{% url 'log_behavior' kid.id %}" method="POST" class="inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="action_type" value="GOOD">
+                        <button type="submit"
+                            class="text-xl bg-green-100 hover:bg-green-200 text-green-800 px-3 py-1.5 rounded-md transition"
+                            title="Log Good Behavior">😊</button>
+                    </form>
+                    <span class="text-xs text-gray-500 font-semibold uppercase tracking-wider">Quick Log</span>
+                    <form action="{% url 'log_behavior' kid.id %}" method="POST" class="inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="action_type" value="BAD">
+                        <button type="submit"
+                            class="text-xl bg-red-100 hover:bg-red-200 text-red-800 px-3 py-1.5 rounded-md transition"
+                            title="Log Bad Behavior">😔</button>
+                    </form>
+                </div>
+
+                <a href="#"
+                    class="block w-full text-center py-2.5 border border-gray-200 dark:border-gray-600 rounded-lg text-sm font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                    View {{ kid.user.username|title }}'s Details &rarr;
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div
+            class="col-span-full bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-10 text-center">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
+                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                    </path>
+                </svg>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">No Children Managed Yet</h3>
+            <p class="text-gray-500 mb-6">Get started by creating a child profile to track points and rewards.</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Pending Redemptions Section -->
+    <h2 class="text-xl font-bold text-gray-700 dark:text-gray-200 mb-6 border-b pb-2 dark:border-gray-700">Recent
+        Activity & Redemptions</h2>
+    <div
+        class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+        {% if pending_redemptions %}
+        <ul class="divide-y divide-gray-100 dark:divide-gray-700">
+            {% for redemption in pending_redemptions %}
+            <li class="p-6 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-[#FB923C]/20 flex items-center justify-center text-[#FB923C]">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7">
+                            </path>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="font-bold text-gray-900 dark:text-white">{{ redemption.user.username|title
+                            }}</span>
+                        <span class="text-gray-600 dark:text-gray-400"> wants to redeem </span>
+                        <span class="font-bold text-[#F9A825]">{{ redemption.reward.title }}</span>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <form action="{% url 'manage_redemption' redemption.id 'approve' %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit"
+                            class="px-4 py-2 bg-[#2DD4BF] text-white text-sm font-semibold rounded-lg hover:bg-teal-500 transition shadow-sm">Approve</button>
+                    </form>
+                    <form action="{% url 'manage_redemption' redemption.id 'reject' %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit"
+                            class="px-4 py-2 bg-red-100 text-red-600 text-sm font-semibold rounded-lg hover:bg-red-200 transition shadow-sm">Reject</button>
+                    </form>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <div class="p-8 text-center text-gray-500 dark:text-gray-400">
+            <p>No activity to review right now.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

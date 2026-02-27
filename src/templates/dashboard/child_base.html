@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{% block head_title %}Family Task Manager - Kids{% endblock head_title %}</title>
+    {% include 'base/css.html' %}
+</head>
+
+<body class="bg-blue-50 dark:bg-gray-900 font-sans antialiased text-gray-900 dark:text-gray-100">
+    <!-- Child NavBar-->
+    {% include 'dashboard/child_nav.html'%}
+
+    <main class="p-4 h-auto max-w-lg mx-auto md:max-w-4xl pt-4">
+        {% include 'base/messages.html' with messages=messages %}
+        {% block content %} {% endblock content %}
+    </main>
+
+    {% include 'base/js.html' %}
+</body>
+
+</html>

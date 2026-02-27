@@ -1,0 +1,61 @@
+{% load static %}
+<nav
+    class="bg-white/90 backdrop-blur-md border-b border-gray-200 px-4 py-2 dark:bg-gray-900/90 dark:border-gray-800 fixed left-0 right-0 top-0 z-50 shadow-sm transition-all duration-300">
+    <div class="flex justify-between items-center max-w-4xl mx-auto">
+
+        <!-- Left side: Child Profile -->
+        <div class="flex items-center gap-2">
+            <button type="button" id="child-profile-menu"
+                class="flex items-center gap-2 focus:outline-none rounded-full p-1 pr-3 bg-gray-50/50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-150 border border-gray-200 dark:border-gray-700 shadow-sm">
+                <img class="w-8 h-8 rounded-full border border-primary object-cover"
+                    src="https://ui-avatars.com/api/?name={{ request.user.first_name|default:'C' }}&background=2DD4BF&color=fff&size=128"
+                    alt="Child Avatar" />
+                <span class="text-sm font-bold text-gray-800 dark:text-gray-100 hidden sm:inline-block">
+                    {{ request.user.first_name|default:'Buddy' }}
+                </span>
+            </button>
+        </div>
+
+        <!-- Center: FTM Logo (Optional but adds flair) -->
+        <div class="hidden sm:flex items-center absolute left-1/2 transform -translate-x-1/2">
+            <img src="{% static 'images/mascot.png' %}" alt="FTM Mascot"
+                class="w-6 h-6 object-contain drop-shadow-sm opacity-80" onerror="this.style.display='none'" />
+            <span class="ml-2 font-black text-gray-700 dark:text-gray-200 tracking-tight text-sm">FTM</span>
+        </div>
+
+        <!-- Right side: Point Total -->
+        <div class="flex items-center">
+            <div
+                class="flex items-center gap-1.5 bg-gradient-to-r from-[#F9A825] to-[#F59E0B] px-3 py-1.5 rounded-full text-white shadow-[0_2px_10px_-2px_rgba(249,168,37,0.4)] transform hover:scale-105 transition duration-200 cursor-pointer">
+                <!-- Star/Coin Icon -->
+                <svg class="w-4 h-4 text-yellow-100 animate-pulse" fill="currentColor" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                    </path>
+                </svg>
+                <div class="flex items-baseline gap-1">
+                    <span class="text-base font-black leading-none drop-shadow-sm tracking-tight">
+                        {{ request.user.profile.points|default:'0' }}
+                    </span>
+                    <span class="text-[10px] font-bold leading-none uppercase text-yellow-50 drop-shadow-sm">
+                        Pts
+                    </span>
+                </div>
+            </div>
+
+            <!-- Mobile Log Out (Optional, usually we'd have a dropdown, but keeping it minimal) -->
+            <a href="{% url 'account_logout' %}" title="Log out"
+                class="ml-3 p-1.5 rounded-full text-gray-400 hover:text-red-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+            </a>
+        </div>
+
+    </div>
+</nav>
+
+<!-- Spacer for fixed top navigation (Reduced size) -->
+<div class="h-16"></div>
